@@ -15,7 +15,17 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test "email should be present" do
-    @user.email = ""
+    @user.email = " "
+    assert_not @user.valid?
+  end
+
+  test "name too long?" do
+    @user.name = "a" * 51
+    assert_not @user.valid?
+  end
+
+  test "email too long?" do
+    @user.email = "a" * 256
     assert_not @user.valid?
   end
 end
