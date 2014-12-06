@@ -45,7 +45,14 @@ class UserTest < ActiveSupport::TestCase
         @user.email = invalid_value
         assert_not @user.valid?, "#{invalid_value} is not valid"
       end
-  end                   
+  end 
+
+  test "unique email?" do
+    not_unique_email = @user.dup
+    not_unique_email.email = @user.email.downcase
+    @user.save
+    assert_not not_unique_email.valid?
+  end                  
 
 
 
