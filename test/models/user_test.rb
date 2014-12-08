@@ -54,6 +54,11 @@ class UserTest < ActiveSupport::TestCase
     assert_not not_unique_email.valid?
   end                  
 
-
+  test "db email should be lowercase" do
+    testcase_email = "AsDf@gMaIl.Com"
+    @user.email = testcase_email
+    @user.save
+    assert_equal @user.reload.email, testcase_email.downcase
+  end
 
 end
